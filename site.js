@@ -24,6 +24,7 @@ $(".hidden").on("change", function() {
 // {{ 
 function updateTotal() { 
     var totalString = "";
+    var price = 600;
     $(".hidden").each(function() {
         if ($(this).prop("checked") && $(this).prop("name") != "delivery" && $(this).prop("name") != "terms") {
             if ($(this).prop("name") === "tortilla") {
@@ -32,19 +33,14 @@ function updateTotal() {
             else {
                 totalString = totalString.concat('<li class="item">' + $(this).siblings("label").html() + "</li>");
             }
+            if ($(this).prop("checked") && $(this).prop("name") === "extra-ingredients") {
+                price = price + 50;
+            }
         }
     });
     $("ul").html(totalString);
-    var price = 600;
-    $(".hidden").each(function() {
-        if ($(this).prop("checked") && $(this).prop("name") === "extra-ingredients") {
-            price = price + 50;
-    }});
     $("#total_cost").html("<strong>Total:</strong> $" + price.toString().slice(0, -2) + "." + price.toString().slice(-2));
 }
-$(".ui.checkbox").checkbox();
-
-$(".hidden").each(function() {
-    console.log($(this).attr("class") === "hidden");
-});
 // }}
+
+$(".ui.checkbox").checkbox();
